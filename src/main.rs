@@ -26,7 +26,6 @@ mod exercise;
 mod project;
 mod run;
 mod verify;
-mod build;
 
 // In sync with crate version
 const VERSION: &str = "5.5.1";
