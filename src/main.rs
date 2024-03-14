@@ -26,6 +26,7 @@ mod exercise;
 mod project;
 mod run;
 mod verify;
+mod build;
 
 // In sync with crate version
 const VERSION: &str = "5.5.1";
@@ -274,13 +275,13 @@ async fn main() {
 
             let exercise_check_list =  Arc::new(Mutex::new(
                 ExerciseCheckList {
-                    exercises: vec![], 
-                    user_name:  None, 
-                    statistics: ExerciseStatistics { 
-                        total_exercations: alls, 
-                        total_succeeds: 0, 
-                        total_failures: 0, 
-                        total_time: 0, 
+                    exercises: vec![],
+                    user_name:  None,
+                    statistics: ExerciseStatistics {
+                        total_exercations: alls,
+                        total_succeeds: 0,
+                        total_failures: 0,
+                        total_time: 0,
                     }
                 }
             ));
@@ -302,7 +303,7 @@ async fn main() {
                             println!("当前做正确的题目数: {}", *c_mutex.lock().unwrap());
                             let now_end = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
                             println!("当前修改试卷耗时: {} s", now_end - now_start);
-                            exercise_check_list_ref.lock().unwrap().exercises.push(ExerciseResult{ 
+                            exercise_check_list_ref.lock().unwrap().exercises.push(ExerciseResult{
                                 name: inner_exercise.name, result: true,
                             });
                             exercise_check_list_ref.lock().unwrap().statistics.total_succeeds += 1;
@@ -313,7 +314,7 @@ async fn main() {
                             println!("当前做正确的题目数: {}", *c_mutex.lock().unwrap());
                             let now_end = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
                             println!("当前修改试卷耗时: {} s", now_end - now_start);
-                            exercise_check_list_ref.lock().unwrap().exercises.push(ExerciseResult{ 
+                            exercise_check_list_ref.lock().unwrap().exercises.push(ExerciseResult{
                                 name: inner_exercise.name, result: false,
                             });
                             exercise_check_list_ref.lock().unwrap().statistics.total_failures += 1;
